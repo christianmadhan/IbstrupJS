@@ -1,48 +1,51 @@
 // Singleton object 
 var Ibstrup = (function () {
-    var ib_instance;
-    function createInstance() {
-        var ib_object = new Object('Ibstrup instantiated');
-        return ib_object;
+  var ib_instance;
+  function createInstance() {
+    var ib_object = new Object('Ibstrup instantiated');
+    return ib_object;
+  }
+  return {
+    getIbInstance: function () {
+      if (!ib_instance) {
+        ib_instance = createInstance;
+      }
+      return ib_instance;
     }
-    return {
-        getIbInstance: function () {
-            if (!ib_instance) {
-                ib_instance = createInstance;
-            }
-            return ib_instance;
-        }
-    }
+  }
 })();
+
+let expression = document.querySelector('name');
+console.log(expression);
 
 // Web Components
 
 // create constant colors which will be used in every components.
 const colors = {
-    BLUE: '',
-    BLUE_HOVER: '',
+  BLUE: '',
+  BLUE_HOVER: '',
 }
 
 class Button extends HTMLElement {
-    connectedCallback() {
+  connectedCallback() {
 
-        const template_button = document.createElement('template');
-        let button_color = "blue";
+    const template_button = document.createElement('template');
+    let button_color = "blue";
 
-        if (!this.shadowRoot) {
-            let size = this.getAttribute("size");
-            let color = this.getAttribute("color");
-            let boxshadow = this.getAttribute("boxshadow");
-            switch (size) {
-                case 'large':
-                    button_color = "pink";
-                    break;
+    if (!this.shadowRoot) {
+      let size = this.getAttribute("size");
+      let color = this.getAttribute("color");
+      let boxshadow = this.getAttribute("boxshadow");
+      switch (size) {
+        case 'large':
+          button_color = "pink";
+          break;
 
-                default:
-                    break;
-            }
+        default:
+          break;
+      }
 
-            template_button.innerHTML = `
+      template_button.innerHTML = `
             <style> 
             @import url("https://fonts.googleapis.com/css?family=Rubik:700&display=swap");
             * {
@@ -109,10 +112,10 @@ class Button extends HTMLElement {
             <button class="learn-more">Learn more</button>
             `;
 
-            this.attachShadow({ mode: 'open' });
-            this.shadowRoot.appendChild(template_button.content.cloneNode(true));
-        }
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.appendChild(template_button.content.cloneNode(true));
     }
+  }
 
 
 }
@@ -122,26 +125,26 @@ const template_card = document.createElement('template');
 template_card.innerHTML = `<div>Custom card </div>`;
 
 class Card extends HTMLElement {
-    connectedCallback() {
-        if (!this.shadowRoot) {
-            this.attachShadow({ mode: 'open' });
-            this.shadowRoot.appendChild(template_card.content.cloneNode(true));
-        }
+  connectedCallback() {
+    if (!this.shadowRoot) {
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.appendChild(template_card.content.cloneNode(true));
     }
+  }
 }
 
 
 const template_grid = document.createElement('template');
 template_grid.innerHTML = "<slot/>"
 class Grid extends HTMLElement {
-    connectedCallback() {
-        if (!this.shadowRoot) {
-            this.style.display = "grid";
-            this.style.gap = "1em";
-            this.attachShadow({ mode: 'open' });
-            this.shadowRoot.appendChild(template_grid.content.cloneNode(true));
-        }
+  connectedCallback() {
+    if (!this.shadowRoot) {
+      this.style.display = "grid";
+      this.style.gap = "1em";
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.appendChild(template_grid.content.cloneNode(true));
     }
+  }
 }
 
 const register = function () { customElements.define('ib-grid', Grid); customElements.define('ib-button', Button); customElements.define('ib-card', Card); };
