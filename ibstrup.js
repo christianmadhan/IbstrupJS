@@ -15,9 +15,6 @@ var Ibstrup = (function () {
   }
 })();
 
-let expression = document.querySelector('name');
-console.log(expression);
-
 // Web Components
 
 // create constant colors which will be used in every components.
@@ -65,6 +62,7 @@ class Button extends HTMLElement {
               text-decoration: none;
               font-size: inherit;
               font-family: inherit;
+              -webkit-tap-highlight-color: transparent;
             }
             button.learn-more {
               font-weight: 600;
@@ -122,7 +120,36 @@ class Button extends HTMLElement {
 
 
 const template_card = document.createElement('template');
-template_card.innerHTML = `<div>Custom card </div>`;
+template_card.innerHTML = `
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+</style>
+</head>
+<body>
+
+<h2>Card</h2>
+
+<div class="card">
+  <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Avatar" style="width:100%">
+  <div class="container">
+    <h4><b>John Doe</b></h4> 
+    <p>Architect & Engineer</p> 
+  </div>
+</div>
+
+`;
 
 class Card extends HTMLElement {
   connectedCallback() {
