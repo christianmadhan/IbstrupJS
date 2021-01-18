@@ -1,6 +1,3 @@
-import { Ibstrup } from './ibstrup/ib.js';
-Ibstrup.getInstances();
-let button = document.getElementById('ibbtn');
-button.onclick = function(){
-    Ibstrup.Navigate("page2");
-}
+var elm = Ibstrup('#esl');
+
+console.log(elm.elems[0]);
